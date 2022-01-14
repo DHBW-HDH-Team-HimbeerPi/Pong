@@ -4,6 +4,7 @@ from output_framework.output_framework import OutputFramework as oF
 import numpy as np
 import time
 
+
 class Pong:
 
     def __init__(self):
@@ -11,7 +12,6 @@ class Pong:
         self.rightPanel = Panel(14, 0, 0, 255)
         self.gameBall = Ball()
         self.play()
-
 
     def setGameItems(self, gameField, panel):
         xPosition, yPosition = panel.getCoordinate()
@@ -32,3 +32,6 @@ class Pong:
             oF.setWindow(gameField)
             time.sleep(0.01)
 
+
+if __name__ == "__main__":
+    Pong()
