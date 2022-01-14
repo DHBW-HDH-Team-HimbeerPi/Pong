@@ -24,7 +24,6 @@ class Pong:
         return gameField
 
     def play(self):
-
         while True:
             gameField = np.full((16, 16, 3), 0)
             gameField = self.setGameItems(gameField, self.leftPanel)
