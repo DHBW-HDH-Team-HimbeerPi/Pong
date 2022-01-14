@@ -10,6 +10,7 @@ class Pong:
         self.leftPanel = Panel(1, 0, 255, 0)
         self.rightPanel = Panel(14, 0, 0, 255)
         self.gameBall = Ball()
+        self.play()
 
 
     def setGameItems(self, gameField, panel):
