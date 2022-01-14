@@ -1,6 +1,8 @@
 from files.ball import Ball
 from files.panel import Panel
+from output_framework.output_framework import OutputFramework as oF
 import numpy as np
+import time
 
 class Pong:
 
@@ -26,3 +28,6 @@ class Pong:
             gameField = self.setGameItems(gameField, self.leftPanel)
             gameField = self.setGameItems(gameField, self.rightPanel)
             gameField = self.setGameItems(gameField, self.gameBall)
+            oF.setWindow(gameField)
+            time.sleep(0.01)
+
