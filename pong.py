@@ -13,13 +13,14 @@ class Pong:
         self.gameBall = Ball()
         self.play()
 
-    def setGameItems(self, gameField, panel):
-        xPosition, yPosition = panel.getCoordinate()
-        size = panel.size
+    def setGameItems(self, gameField, gameObject):
+        xPosition = gameObject.xPosition
+        yPosition = gameObject.yPosition
+        size = gameObject.size
         for x in range(size):
-            gameField[xPosition][yPosition + x][0] = panel.r
-            gameField[xPosition][yPosition + x][1] = panel.g
-            gameField[xPosition][yPosition + x][2] = panel.b
+            gameField[xPosition][yPosition + x][0] = gameObject.r
+            gameField[xPosition][yPosition + x][1] = gameObject.g
+            gameField[xPosition][yPosition + x][2] = gameObject.b
         return gameField
 
     def play(self):
