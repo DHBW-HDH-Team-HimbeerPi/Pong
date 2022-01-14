@@ -1,4 +1,4 @@
-from output_framework.OutFramework import OutputFramework as oF
+from output_framework.output_framework import OutputFramework as oF
 import numpy as np
 
 #oF.setPixel(0,0,255,255,255)
