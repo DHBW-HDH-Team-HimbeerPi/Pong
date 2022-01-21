@@ -30,7 +30,7 @@ class Pong:
             gameField = self.setGameItems(gameField, self.rightPanel)
             gameField = self.setGameItems(gameField, self.gameBall)
 #            oF.setWindow(gameField)
-            time.sleep(0.01)
+            time.sleep(1)
 
 
 if __name__ == "__main__":
