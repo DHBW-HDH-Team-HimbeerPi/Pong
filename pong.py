@@ -1,6 +1,7 @@
 from files.ball import Ball
 from files.panel import Panel
-#from output_framework.output_framework import OutputFramework as oF
+from output_framework.output_framework import OutputFramework as oF
+#from unicornhatsimulator import unicornhathd as uni
 import numpy as np
 import time
 
@@ -25,11 +26,15 @@ class Pong:
 
     def play(self):
         while True:
-            gameField = np.full((16, 16, 3), 255)
+            gameField = np.full((16, 16, 3), 0)
             gameField = self.setGameItems(gameField, self.leftPanel)
             gameField = self.setGameItems(gameField, self.rightPanel)
             gameField = self.setGameItems(gameField, self.gameBall)
-#            oF.setWindow(gameField)
+            oF.setWindow(gameField)
+            #for x in range(len(gameField)):
+             #   for y in range(len(gameField[x])):
+             #       uni.set_pixel(x, y, gameField[x][y][0], gameField[x][y][1], gameField[x][y][2])
+            #uni.show()
             time.sleep(1)
 
 
