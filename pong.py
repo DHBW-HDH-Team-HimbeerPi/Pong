@@ -59,7 +59,7 @@ class Pong:
             #        uni.set_pixel(x, y, gameField[x][y][0], gameField[x][y][1], gameField[x][y][2])
             #uni.show()
 
-            time.sleep(self.speed)
+            #time.sleep(self.speed)
 
     def ballCheck(self):
         if int (self.gameBall.xPosition) <= 0 or int (self.gameBall.xPosition) >= 15:
