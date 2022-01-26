@@ -14,7 +14,7 @@ class Panel:
             self.yPosition = self.yPosition - 1
 
     def moveDown(self):
-        if self.yPosition < 16:
+        if self.yPosition + 3 < 16:
             self.yPosition = self.yPosition + 1
 
 

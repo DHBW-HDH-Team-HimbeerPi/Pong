@@ -19,6 +19,7 @@ class Pong:
         self.scoreLeft = 0
         self.scoreRight = 0
         self.com = aiPlayer()
+        self.com2 = aiPlayer()
         self.play()
 
 
@@ -41,6 +42,12 @@ class Pong:
             else:
                 if comMove == 1:
                     self.rightPanel.moveUp()
+            comMove2 = self.com.play(self.gameBall.yPosition, self.leftPanel.yPosition)
+            if comMove2 == -1:
+                self.leftPanel.moveDown()
+            else:
+                if comMove2 == 1:
+                    self.leftPanel.moveUp()
             self.ballCheck()
             gameField = np.full((16, 16, 3), 0)
             gameField = self.setGameItems(gameField, self.leftPanel)
@@ -67,9 +74,11 @@ class Pong:
             if int (self.gameBall.xPosition) == 1 or int (self.gameBall.xPosition) == 14:
                 if int (self.gameBall.xPosition) == 1 and self.gameBall.yPosition >= self.leftPanel.yPosition and self.gameBall.yPosition <= (self.leftPanel.yPosition + self.leftPanel.size -1):
                     self.gameBall.panelBounce(self.leftPanel)
+                    self.speed = self.speed * 0.8
                 else:
                     if int (self.gameBall.xPosition) == 14 and self.gameBall.yPosition >= self.rightPanel.yPosition and self.gameBall.yPosition <= (self.rightPanel.yPosition + self.rightPanel.size -1):
                         self.gameBall.panelBounce(self.leftPanel)
+                        self.speed = self.speed * 0.8
             if int (self.gameBall.yPosition) <= 0 or int (self.gameBall.yPosition) >= 15:
                 self.gameBall.bounce()
             self.gameBall.move()
