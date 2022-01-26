@@ -1,9 +1,10 @@
 from files.ball import Ball
 from files.panel import Panel
-from output_framework.output_framework import OutputFramework as oF
+#from output_framework.output_framework import OutputFramework as oF
 #from input_framework.imu_controller import IMUController
 #from input_framework.interface import ThresholdType, TriggerMode
-#from unicornhatsimulator import unicornhathd as uni
+from unicornhatsimulator import unicornhathd as uni
+from files.comPlayer import aiPlayer
 import numpy as np
 import time
 
@@ -11,13 +12,15 @@ import time
 class Pong:
 
     def __init__(self):
-        self.leftPanel = Panel(1, 0, 255, 0)
-        self.rightPanel = Panel(14, 0, 0, 255)
+        self.leftPanel = Panel(1, 0, 0, 255)
+        self.rightPanel = Panel(14, 0, 255, 0)
         self.gameBall = Ball()
-        self.speed = 0.01
+        self.speed = 0.015
         self.scoreLeft = 0
         self.scoreRight = 0
+        self.com = aiPlayer()
         self.play()
+
 
     def setGameItems(self, gameField, gameObject):
         xPosition = int (gameObject.xPosition)
@@ -32,16 +35,23 @@ class Pong:
 
     def play(self):
         while True:
+            comMove = self.com.play(self.gameBall.yPosition, self.rightPanel.yPosition)
+            if  comMove == -1:
+                self.rightPanel.moveDown()
+            else:
+                if comMove == 1:
+                    self.rightPanel.moveUp()
             self.ballCheck()
             gameField = np.full((16, 16, 3), 0)
             gameField = self.setGameItems(gameField, self.leftPanel)
             gameField = self.setGameItems(gameField, self.rightPanel)
             gameField = self.setGameItems(gameField, self.gameBall)
-            oF.setWindow(gameField)
-            #for x in range(len(gameField)):
-            #    for y in range(len(gameField[x])):
-            #        uni.set_pixel(x, y, gameField[x][y][0], gameField[x][y][1], gameField[x][y][2])
-            #uni.show()
+            #oF.setWindow(gameField)
+            for x in range(len(gameField)):
+                for y in range(len(gameField[x])):
+                    uni.set_pixel(x, y, gameField[x][y][0], gameField[x][y][1], gameField[x][y][2])
+            uni.show()
+
             time.sleep(self.speed)
 
     def ballCheck(self):
@@ -50,15 +60,15 @@ class Pong:
                 self.scoreRight = self.scoreRight + 1
             else:
                 self.scoreLeft = self.scoreLeft + 1
-            self.leftPanel = Panel(1, 0, 255, 0)
-            self.rightPanel = Panel(14, 0, 0, 255)
+            self.leftPanel = Panel(1, 0, 0, 255)
+            self.rightPanel = Panel(14, 0, 255, 0)
             self.gameBall = Ball()
         else:
             if int (self.gameBall.xPosition) == 1 or int (self.gameBall.xPosition) == 14:
-                if int (self.gameBall.xPosition) == 1 and self.gameBall.yPosition >= self.leftPanel.yPosition and self.gameBall.yPosition <= (self.leftPanel.yPosition + self.leftPanel.size):
+                if int (self.gameBall.xPosition) == 1 and self.gameBall.yPosition >= self.leftPanel.yPosition and self.gameBall.yPosition <= (self.leftPanel.yPosition + self.leftPanel.size -1):
                     self.gameBall.panelBounce(self.leftPanel)
                 else:
-                    if int (self.gameBall.xPosition) == 14 and self.gameBall.yPosition >= self.rightPanel.yPosition and self.gameBall.yPosition <= (self.rightPanel.yPosition + self.rightPanel.size):
+                    if int (self.gameBall.xPosition) == 14 and self.gameBall.yPosition >= self.rightPanel.yPosition and self.gameBall.yPosition <= (self.rightPanel.yPosition + self.rightPanel.size -1):
                         self.gameBall.panelBounce(self.leftPanel)
             if int (self.gameBall.yPosition) <= 0 or int (self.gameBall.yPosition) >= 15:
                 self.gameBall.bounce()

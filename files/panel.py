@@ -10,14 +10,12 @@ class Panel:
         self.b = b
 
     def moveUp(self):
-        if self.xPosition > 0:
-            self.xPosition - 1
-            self.yPosition = self.xPosition + self.size
+        if self.yPosition > 0:
+            self.yPosition = self.yPosition - 1
 
     def moveDown(self):
         if self.yPosition < 16:
-            self.xPosition + 1
-            self.yPosition = self.xPosition + self.size
+            self.yPosition = self.yPosition + 1
 
 
     @property
