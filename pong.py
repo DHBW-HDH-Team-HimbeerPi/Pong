@@ -15,7 +15,6 @@ class Pong:
         self.leftPanel = Panel(1, 0, 0, 255)
         self.rightPanel = Panel(14, 0, 255, 0)
         self.gameBall = Ball()
-        self.speed = 0.015
         self.scoreLeft = 0
         self.scoreRight = 0
         self.com = aiPlayer()
@@ -39,7 +38,7 @@ class Pong:
         direction = direc
 
     def play(self):
-        rotationTreshold = 0.5
+        rotationTreshold = 0.6
         self.inputToDirection(0)
         try:
             controller = IMUController(TriggerMode.CALL_CHECK)
@@ -91,12 +90,10 @@ class Pong:
                 if int(self.gameBall.xPosition) == 1 and self.gameBall.yPosition >= self.leftPanel.yPosition and self.gameBall.yPosition <= (
                         self.leftPanel.yPosition + self.leftPanel.size - 1):
                     self.gameBall.panelBounce(self.leftPanel)
-                    self.speed = self.speed * 0.8
                 else:
                     if int(self.gameBall.xPosition) == 14 and self.gameBall.yPosition >= self.rightPanel.yPosition and self.gameBall.yPosition <= (
                             self.rightPanel.yPosition + self.rightPanel.size - 1):
                         self.gameBall.panelBounce(self.leftPanel)
-                        self.speed = self.speed * 0.8
             if int(self.gameBall.yPosition) <= 0 or int(self.gameBall.yPosition) >= 15:
                 self.gameBall.bounce()
             self.gameBall.move()
