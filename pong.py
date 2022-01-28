@@ -9,9 +9,7 @@ import numpy as np
 import time
 
 
-def inputToDirection(direc: int):
-    global direction
-    direction = direc
+
 
 class Pong:
 
@@ -40,20 +38,22 @@ class Pong:
                 gameField[xPosition][yPosition + x][2] = gameObject.b
         return gameField
 
-
+    def inputToDirection(self, direc: int):
+        global direction
+        direction = direc
 
     def play(self):
         rotationTreshold = 0.35
-
+        self.inputToDirection(1);
         try:
             controller = IMUController(TriggerMode.CALL_CHECK)
             #controller.register_trigger(self.inputToDirection, {'direc': 1}, controller.mov_x, rotationTreshold,
             #                            ThresholdType.HIGHER)
             #controller.register_trigger(self.inputToDirection, {'direc': 2}, controller.mov_x, -rotationTreshold,
             #                            ThresholdType.LOWER)
-            controller.register_trigger(inputToDirection, {'direc': -1}, controller.mov_y, -rotationTreshold,
+            controller.register_trigger(self.inputToDirection, {'direc': -1}, controller.mov_y, -rotationTreshold,
                                         ThresholdType.LOWER)
-            controller.register_trigger(inputToDirection, {'direc': 1}, controller.mov_y, rotationTreshold,
+            controller.register_trigger(self.inputToDirection, {'direc': 1}, controller.mov_y, rotationTreshold,
                                         ThresholdType.HIGHER)
         except NameError:
             print("could NOT find controller")
