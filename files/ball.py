@@ -21,7 +21,7 @@ class Ball:
         self.verticalSpeed = -(self.verticalSpeed)
 
     def panelBounce(self, panel):
-        self.speed = -(self.speed) * 1.01
+        self.speed = -(self.speed)
         if (panel.yPosition - self.yPosition) < 1:
             if self.verticalSpeed >= 0:
                 self.verticalSpeed = self.verticalSpeed +  (1 * ((panel.yPosition - self.yPosition)/25))

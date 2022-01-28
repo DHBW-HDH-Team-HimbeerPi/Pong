@@ -54,14 +54,18 @@ class Pong:
         except NameError:
             print("could NOT find controller")
 
+        count = 0
+
         while True:
             self.ballCheck()
-            comMove = self.com.play(self.gameBall.yPosition, self.rightPanel.yPosition)
-            if comMove == -1:
-                self.rightPanel.moveDown()
-            else:
-                if comMove == 1:
-                    self.rightPanel.moveUp()
+            if count == 5:
+                comMove = self.com.play(self.gameBall.yPosition, self.rightPanel.yPosition)
+                if comMove == -1:
+                    self.rightPanel.moveDown()
+                else:
+                    if comMove == 1:
+                        self.rightPanel.moveUp()
+                count = 0
             controller.check_triggers()
             self.check()
             gameField = np.full((16, 16, 3), 0)
@@ -74,6 +78,7 @@ class Pong:
             #    for y in range(len(gameField[x])):
             #        uni.set_pixel(x, y, gameField[x][y][0], gameField[x][y][1], gameField[x][y][2])
             # uni.show()
+            count = count + 1
             # time.sleep(self.speed)
 
     def ballCheck(self):
