@@ -43,7 +43,7 @@ class Pong:
         direction = direc
 
     def play(self):
-        rotationTreshold = 0.35
+        rotationTreshold = 0.8
         self.inputToDirection(1);
         try:
             controller = IMUController(TriggerMode.CALL_CHECK)
