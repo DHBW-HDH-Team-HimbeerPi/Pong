@@ -58,7 +58,7 @@ class Pong:
 
         while True:
             self.ballCheck()
-            if count == 5:
+            if count == 3:
                 comMove = self.com.play(self.gameBall.yPosition, self.rightPanel.yPosition)
                 if comMove == -1:
                     self.rightPanel.moveDown()
@@ -82,7 +82,7 @@ class Pong:
             # time.sleep(self.speed)
 
     def ballCheck(self):
-        if int(self.gameBall.xPosition) < 1 or int(self.gameBall.xPosition) > 15:
+        if int(self.gameBall.xPosition) < 1 or int(self.gameBall.xPosition) > 14:
             if int(self.gameBall.xPosition) < 1:
                 self.scoreRight = self.scoreRight + 1
             else:
@@ -91,7 +91,7 @@ class Pong:
             self.rightPanel = Panel(14, 0, 255, 0)
             self.gameBall = Ball()
         else:
-            if int(self.gameBall.xPosition) == 1 or int(self.gameBall.xPosition) == 14:
+            if int(self.gameBall.xPosition) == 1 or int(self.gameBall.xPosition) == 13:
                 if int(self.gameBall.xPosition) == 1 and self.gameBall.yPosition >= self.leftPanel.yPosition and self.gameBall.yPosition <= (
                         self.leftPanel.yPosition + self.leftPanel.size - 1):
                     self.gameBall.panelBounce(self.leftPanel)
