@@ -36,6 +36,7 @@ class Pong:
 
     def play(self):
         while True:
+            zeitCom = time.time()
             comMove = self.com.play(self.gameBall.yPosition, self.rightPanel.yPosition)
             if  comMove == -1:
                 self.rightPanel.moveDown()
@@ -44,17 +45,26 @@ class Pong:
                 if comMove == 1:
                     self.rightPanel.moveUp()
                     self.leftPanel.moveUp()
+            zeitCom2 = time.time()
+            print(zeitCom2- zeitCom)
+            zeitBerechnungAnzeige = time.time()
             self.ballCheck()
             gameField = np.full((16, 16, 3), 0)
             gameField = self.setGameItems(gameField, self.leftPanel)
             gameField = self.setGameItems(gameField, self.rightPanel)
             gameField = self.setGameItems(gameField, self.gameBall)
+            zeitBerechnungAnzeige2 = time.time()
+
+            print(f"Berechnung  {zeitBerechnungAnzeige2 - zeitBerechnungAnzeige}")
+            zeitAusgabe = time.time()
             oF.setWindow(gameField)
+
             #for x in range(len(gameField)):
             #    for y in range(len(gameField[x])):
             #        uni.set_pixel(x, y, gameField[x][y][0], gameField[x][y][1], gameField[x][y][2])
             #uni.show()
-
+            zeitAusgabe2 = time.time()
+            print(f"Ausgabe  {zeitAusgabe2 - zeitAusgabe}")
             #time.sleep(self.speed)
 
     def ballCheck(self):
