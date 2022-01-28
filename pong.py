@@ -28,9 +28,9 @@ class Pong:
         size = gameObject.size
         for x in range(size):
             if yPosition < 16:
-                gameField[xPosition][yPosition + x][0] = gameObject.r
-                gameField[xPosition][yPosition + x][1] = gameObject.g
-                gameField[xPosition][yPosition + x][2] = gameObject.b
+                gameField[xPosition][int(yPosition) + x][0] = gameObject.r
+                gameField[xPosition][int(yPosition) + x][1] = gameObject.g
+                gameField[xPosition][int(yPosition) + x][2] = gameObject.b
         return gameField
 
     def inputToDirection(self, direc: int):
