@@ -21,6 +21,7 @@ class Pong:
         self.scoreRight = 0
         self.com = aiPlayer()
         self.com2 = aiPlayer()
+        global direction
         self.play()
 
 
@@ -36,7 +37,7 @@ class Pong:
         return gameField
 
     def inputToDirection(self, direc: int):
-        global direction
+
         direction = direc
 
     def play(self):
