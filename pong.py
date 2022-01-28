@@ -11,7 +11,6 @@ import time
 
 class Pong:
 
-    global direction
 
     def __init__(self):
         self.leftPanel = Panel(1, 0, 0, 255)
@@ -37,6 +36,7 @@ class Pong:
         return gameField
 
     def inputToDirection(self, direc: int):
+        global direction
         direction = direc
 
     def play(self):
