@@ -34,7 +34,7 @@ class Pong:
                 gameField[xPosition][yPosition + x][2] = gameObject.b
         return gameField
 
-    def inputToDirection(direc: int):
+    def inputToDirection(self, direc: int):
         global direction
         direction = direc
 
