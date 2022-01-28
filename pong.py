@@ -62,7 +62,8 @@ class Pong:
             else:
                 if comMove == 1:
                     self.rightPanel.moveUp()
-            self.check(controller)
+            controller.check_triggers()
+            self.check()
             self.ballCheck()
             gameField = np.full((16, 16, 3), 0)
             gameField = self.setGameItems(gameField, self.leftPanel)
@@ -99,8 +100,7 @@ class Pong:
                 self.gameBall.bounce()
             self.gameBall.move()
 
-    def check(self, controller):
-        controller.check_triggers()
+    def check(self):
         if(direction > 0):
             self.leftPanel.moveUp()
         else:
