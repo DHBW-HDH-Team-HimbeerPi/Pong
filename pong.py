@@ -1,9 +1,9 @@
 from files.ball import Ball
 from files.panel import Panel
-from output_framework.output_framework import OutputFramework as oF
+#from output_framework.output_framework import OutputFramework as oF
 #from input_framework.imu_controller import IMUController
 #from input_framework.interface import ThresholdType, TriggerMode
-#from unicornhatsimulator import unicornhathd as uni
+from unicornhatsimulator import unicornhathd as uni
 from files.comPlayer import aiPlayer
 import numpy as np
 import time
@@ -39,31 +39,27 @@ class Pong:
             comMove = self.com.play(self.gameBall.yPosition, self.rightPanel.yPosition)
             if  comMove == -1:
                 self.rightPanel.moveDown()
+                self.leftPanel.moveDown()
             else:
                 if comMove == 1:
                     self.rightPanel.moveUp()
-            comMove2 = self.com.play(self.gameBall.yPosition, self.leftPanel.yPosition)
-            if comMove2 == -1:
-                self.leftPanel.moveDown()
-            else:
-                if comMove2 == 1:
                     self.leftPanel.moveUp()
             self.ballCheck()
             gameField = np.full((16, 16, 3), 0)
             gameField = self.setGameItems(gameField, self.leftPanel)
             gameField = self.setGameItems(gameField, self.rightPanel)
             gameField = self.setGameItems(gameField, self.gameBall)
-            oF.setWindow(gameField)
-            #for x in range(len(gameField)):
-            #    for y in range(len(gameField[x])):
-            #        uni.set_pixel(x, y, gameField[x][y][0], gameField[x][y][1], gameField[x][y][2])
-            #uni.show()
+            #oF.setWindow(gameField)
+            for x in range(len(gameField)):
+                for y in range(len(gameField[x])):
+                    uni.set_pixel(x, y, gameField[x][y][0], gameField[x][y][1], gameField[x][y][2])
+            uni.show()
 
             #time.sleep(self.speed)
 
     def ballCheck(self):
-        if int (self.gameBall.xPosition) <= 0 or int (self.gameBall.xPosition) >= 15:
-            if int (self.gameBall.xPosition) == 0:
+        if int (self.gameBall.xPosition) < 1 or int (self.gameBall.xPosition) > 15:
+            if int (self.gameBall.xPosition) < 1:
                 self.scoreRight = self.scoreRight + 1
             else:
                 self.scoreLeft = self.scoreLeft + 1
