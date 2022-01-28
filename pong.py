@@ -3,16 +3,13 @@ from files.panel import Panel
 from output_framework.output_framework import OutputFramework as oF
 from input_framework.imu_controller import IMUController
 from input_framework.interface import ThresholdType, TriggerMode
-#from unicornhatsimulator import unicornhathd as uni
+# from unicornhatsimulator import unicornhathd as uni
 from files.comPlayer import aiPlayer
 import numpy as np
 import time
 
 
-
-
 class Pong:
-
 
     def __init__(self):
         self.leftPanel = Panel(1, 0, 0, 255)
@@ -26,10 +23,9 @@ class Pong:
 
         self.play()
 
-
     def setGameItems(self, gameField, gameObject):
-        xPosition = int (gameObject.xPosition)
-        yPosition = int (gameObject.yPosition)
+        xPosition = int(gameObject.xPosition)
+        yPosition = int(gameObject.yPosition)
         size = gameObject.size
         for x in range(size):
             if yPosition < 16:
@@ -44,12 +40,12 @@ class Pong:
 
     def play(self):
         rotationTreshold = 0.8
-        self.inputToDirection(1);
+        self.inputToDirection(0)
         try:
             controller = IMUController(TriggerMode.CALL_CHECK)
-            #controller.register_trigger(self.inputToDirection, {'direc': 1}, controller.mov_x, rotationTreshold,
+            # controller.register_trigger(self.inputToDirection, {'direc': 1}, controller.mov_x, rotationTreshold,
             #                            ThresholdType.HIGHER)
-            #controller.register_trigger(self.inputToDirection, {'direc': 2}, controller.mov_x, -rotationTreshold,
+            # controller.register_trigger(self.inputToDirection, {'direc': 2}, controller.mov_x, -rotationTreshold,
             #                            ThresholdType.LOWER)
             controller.register_trigger(self.inputToDirection, {'direc': -1}, controller.mov_y, -rotationTreshold,
                                         ThresholdType.LOWER)
@@ -59,10 +55,9 @@ class Pong:
         except NameError:
             print("could NOT find controller")
 
-
         while True:
             comMove = self.com.play(self.gameBall.yPosition, self.rightPanel.yPosition)
-            if  comMove == -1:
+            if comMove == -1:
                 self.rightPanel.moveDown()
             else:
                 if comMove == 1:
@@ -76,15 +71,15 @@ class Pong:
             gameField = self.setGameItems(gameField, self.gameBall)
 
             oF.setWindow(gameField)
-            #for x in range(len(gameField)):
+            # for x in range(len(gameField)):
             #    for y in range(len(gameField[x])):
             #        uni.set_pixel(x, y, gameField[x][y][0], gameField[x][y][1], gameField[x][y][2])
-            #uni.show()
-            #time.sleep(self.speed)
+            # uni.show()
+            # time.sleep(self.speed)
 
     def ballCheck(self):
-        if int (self.gameBall.xPosition) < 1 or int (self.gameBall.xPosition) > 15:
-            if int (self.gameBall.xPosition) < 1:
+        if int(self.gameBall.xPosition) < 1 or int(self.gameBall.xPosition) > 15:
+            if int(self.gameBall.xPosition) < 1:
                 self.scoreRight = self.scoreRight + 1
             else:
                 self.scoreLeft = self.scoreLeft + 1
@@ -92,23 +87,25 @@ class Pong:
             self.rightPanel = Panel(14, 0, 255, 0)
             self.gameBall = Ball()
         else:
-            if int (self.gameBall.xPosition) == 1 or int (self.gameBall.xPosition) == 14:
-                if int (self.gameBall.xPosition) == 1 and self.gameBall.yPosition >= self.leftPanel.yPosition and self.gameBall.yPosition <= (self.leftPanel.yPosition + self.leftPanel.size -1):
+            if int(self.gameBall.xPosition) == 1 or int(self.gameBall.xPosition) == 14:
+                if int(self.gameBall.xPosition) == 1 and self.gameBall.yPosition >= self.leftPanel.yPosition and self.gameBall.yPosition <= (
+                        self.leftPanel.yPosition + self.leftPanel.size - 1):
                     self.gameBall.panelBounce(self.leftPanel)
                     self.speed = self.speed * 0.8
                 else:
-                    if int (self.gameBall.xPosition) == 14 and self.gameBall.yPosition >= self.rightPanel.yPosition and self.gameBall.yPosition <= (self.rightPanel.yPosition + self.rightPanel.size -1):
+                    if int(self.gameBall.xPosition) == 14 and self.gameBall.yPosition >= self.rightPanel.yPosition and self.gameBall.yPosition <= (
+                            self.rightPanel.yPosition + self.rightPanel.size - 1):
                         self.gameBall.panelBounce(self.leftPanel)
                         self.speed = self.speed * 0.8
-            if int (self.gameBall.yPosition) <= 0 or int (self.gameBall.yPosition) >= 15:
+            if int(self.gameBall.yPosition) <= 0 or int(self.gameBall.yPosition) >= 15:
                 self.gameBall.bounce()
             self.gameBall.move()
 
     def check(self):
         global direction
-        if(direction > 0):
+        if (direction > 0):
             self.leftPanel.moveUp()
-        else:
+        elif (direction < 0):
             self.leftPanel.moveDown()
         direction = 0
         print(direction)
