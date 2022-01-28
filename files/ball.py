@@ -10,7 +10,7 @@ class Ball:
         self.g = 255
         self.b = 255
         self.verticalSpeed = 0.0
-        self.speed = 0.3
+        self.speed = 0.1
 
     def move(self):
         self.xPosition = self.xPosition + self.speed
