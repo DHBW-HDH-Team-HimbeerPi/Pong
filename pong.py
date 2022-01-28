@@ -53,6 +53,7 @@ class Pong:
             #                            ThresholdType.LOWER)
             controller.register_trigger(self.inputToDirection, {'direc': -1}, controller.mov_y, -rotationTreshold,
                                         ThresholdType.LOWER)
+
             controller.register_trigger(self.inputToDirection, {'direc': 1}, controller.mov_y, rotationTreshold,
                                         ThresholdType.HIGHER)
         except NameError:
@@ -75,7 +76,6 @@ class Pong:
             gameField = self.setGameItems(gameField, self.gameBall)
 
             oF.setWindow(gameField)
-
             #for x in range(len(gameField)):
             #    for y in range(len(gameField[x])):
             #        uni.set_pixel(x, y, gameField[x][y][0], gameField[x][y][1], gameField[x][y][2])
@@ -105,10 +105,12 @@ class Pong:
             self.gameBall.move()
 
     def check(self):
+        global direction
         if(direction > 0):
             self.leftPanel.moveUp()
         else:
             self.leftPanel.moveDown()
+        direction = 0
         print(direction)
 
 
