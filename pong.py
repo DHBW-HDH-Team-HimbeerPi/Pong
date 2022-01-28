@@ -1,9 +1,9 @@
 from files.ball import Ball
 from files.panel import Panel
-#from output_framework.output_framework import OutputFramework as oF
+from output_framework.output_framework import OutputFramework as oF
 #from input_framework.imu_controller import IMUController
 #from input_framework.interface import ThresholdType, TriggerMode
-from unicornhatsimulator import unicornhathd as uni
+#from unicornhatsimulator import unicornhathd as uni
 from files.comPlayer import aiPlayer
 import numpy as np
 import time
@@ -49,11 +49,11 @@ class Pong:
             gameField = self.setGameItems(gameField, self.leftPanel)
             gameField = self.setGameItems(gameField, self.rightPanel)
             gameField = self.setGameItems(gameField, self.gameBall)
-            #oF.setWindow(gameField)
-            for x in range(len(gameField)):
-                for y in range(len(gameField[x])):
-                    uni.set_pixel(x, y, gameField[x][y][0], gameField[x][y][1], gameField[x][y][2])
-            uni.show()
+            oF.setWindow(gameField)
+            #for x in range(len(gameField)):
+            #    for y in range(len(gameField[x])):
+            #        uni.set_pixel(x, y, gameField[x][y][0], gameField[x][y][1], gameField[x][y][2])
+            #uni.show()
 
             #time.sleep(self.speed)
 
