@@ -20,7 +20,7 @@ class Pong:
         self.scoreRight = 0
         self.com = aiPlayer()
         self.com2 = aiPlayer()
-        global direction
+        self.direction
         self.play()
 
 
@@ -37,7 +37,7 @@ class Pong:
 
     def inputToDirection(self, direc: int):
 
-        direction = direc
+        self.direction = direc
 
     def play(self):
         rotationTreshold = 0.35
@@ -102,11 +102,11 @@ class Pong:
             self.gameBall.move()
 
     def check(self):
-        if(direction > 0):
+        if(self.direction > 0):
             self.leftPanel.moveUp()
         else:
             self.leftPanel.moveDown()
-        print(direction)
+        print(self.direction)
 
 
 if __name__ == "__main__":
