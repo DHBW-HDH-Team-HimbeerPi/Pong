@@ -65,6 +65,7 @@ class Pong:
             #uni.show()
             zeitAusgabe2 = time.time()
             print(f"Ausgabe  {zeitAusgabe2 - zeitAusgabe}")
+            print(f"Gesamt {(zeitAusgabe2-zeitAusgabe)+(zeitBerechnungAnzeige2-zeitBerechnungAnzeige)+(zeitCom2-zeitCom)}")
             #time.sleep(self.speed)
 
     def ballCheck(self):
