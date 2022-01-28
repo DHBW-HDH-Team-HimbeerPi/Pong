@@ -55,6 +55,7 @@ class Pong:
             print("could NOT find controller")
 
         while True:
+            self.ballCheck()
             comMove = self.com.play(self.gameBall.yPosition, self.rightPanel.yPosition)
             if comMove == -1:
                 self.rightPanel.moveDown()
@@ -63,7 +64,6 @@ class Pong:
                     self.rightPanel.moveUp()
             controller.check_triggers()
             self.check()
-            self.ballCheck()
             gameField = np.full((16, 16, 3), 0)
             gameField = self.setGameItems(gameField, self.leftPanel)
             gameField = self.setGameItems(gameField, self.rightPanel)
