@@ -91,7 +91,7 @@ class Pong:
             self.rightPanel = Panel(14, 0, 255, 0)
             self.gameBall = Ball()
         else:
-            if int(self.gameBall.xPosition) == 1 or int(self.gameBall.xPosition) == 13:
+            if int(self.gameBall.xPosition) == 1 or int(self.gameBall.xPosition) == 14:
                 if int(self.gameBall.xPosition) == 1 and self.gameBall.yPosition >= self.leftPanel.yPosition and self.gameBall.yPosition <= (
                         self.leftPanel.yPosition + self.leftPanel.size - 1):
                     self.gameBall.panelBounce(self.leftPanel)
