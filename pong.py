@@ -43,10 +43,10 @@ class Pong:
 
         try:
             controller = IMUController(TriggerMode.CALL_CHECK)
-            controller.register_trigger(self.inputToDirection, {'direc': 1}, controller.mov_x, rotationTreshold,
-                                        ThresholdType.HIGHER)
-            controller.register_trigger(self.inputToDirection, {'direc': 2}, controller.mov_x, -rotationTreshold,
-                                        ThresholdType.LOWER)
+            #controller.register_trigger(self.inputToDirection, {'direc': 1}, controller.mov_x, rotationTreshold,
+            #                            ThresholdType.HIGHER)
+            #controller.register_trigger(self.inputToDirection, {'direc': 2}, controller.mov_x, -rotationTreshold,
+            #                            ThresholdType.LOWER)
             controller.register_trigger(self.inputToDirection, {'direc': 3}, controller.mov_y, -rotationTreshold,
                                         ThresholdType.LOWER)
             controller.register_trigger(self.inputToDirection, {'direc': 4}, controller.mov_y, rotationTreshold,
@@ -59,11 +59,9 @@ class Pong:
             comMove = self.com.play(self.gameBall.yPosition, self.rightPanel.yPosition)
             if  comMove == -1:
                 self.rightPanel.moveDown()
-                self.leftPanel.moveDown()
             else:
                 if comMove == 1:
                     self.rightPanel.moveUp()
-                    self.leftPanel.moveUp()
             self.check(controller)
             self.ballCheck()
             gameField = np.full((16, 16, 3), 0)
@@ -103,6 +101,10 @@ class Pong:
 
     def check(self, controller):
         controller.check_triggers()
+        if(direction > 0):
+            self.leftPanel.moveUp()
+        else:
+            self.leftPanel.moveDown()
         print(direction)
 
 
