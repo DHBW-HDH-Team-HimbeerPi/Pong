@@ -1,8 +1,8 @@
 from files.ball import Ball
 from files.panel import Panel
 from output_framework.output_framework import OutputFramework as oF
-#from input_framework.imu_controller import IMUController
-#from input_framework.interface import ThresholdType, TriggerMode
+from input_framework.imu_controller import IMUController
+from input_framework.interface import ThresholdType, TriggerMode
 #from unicornhatsimulator import unicornhathd as uni
 from files.comPlayer import aiPlayer
 import numpy as np
@@ -34,9 +34,28 @@ class Pong:
                 gameField[xPosition][yPosition + x][2] = gameObject.b
         return gameField
 
+    def inputToDirection(direc: int):
+        global direction
+        direction = direc
+
     def play(self):
+        rotationTreshold = 0.35
+
+        try:
+            controller = IMUController(TriggerMode.CALL_CHECK)
+            controller.register_trigger(inputToDirection, {'direc': 1}, controller.mov_x, rotationTreshold,
+                                        ThresholdType.HIGHER)
+            controller.register_trigger(inputToDirection, {'direc': 2}, controller.mov_x, -rotationTreshold,
+                                        ThresholdType.LOWER)
+            controller.register_trigger(inputToDirection, {'direc': 3}, controller.mov_y, -rotationTreshold,
+                                        ThresholdType.LOWER)
+            controller.register_trigger(inputToDirection, {'direc': 4}, controller.mov_y, rotationTreshold,
+                                        ThresholdType.HIGHER)
+        except NameError:
+            print("could NOT find controller")
+
+
         while True:
-            #zeitCom = time.time()
             comMove = self.com.play(self.gameBall.yPosition, self.rightPanel.yPosition)
             if  comMove == -1:
                 self.rightPanel.moveDown()
@@ -45,27 +64,19 @@ class Pong:
                 if comMove == 1:
                     self.rightPanel.moveUp()
                     self.leftPanel.moveUp()
-            #zeitCom2 = time.time()
-            #print(zeitCom2- zeitCom)
-            #zeitBerechnungAnzeige = time.time()
+            self.check(controller)
             self.ballCheck()
             gameField = np.full((16, 16, 3), 0)
             gameField = self.setGameItems(gameField, self.leftPanel)
             gameField = self.setGameItems(gameField, self.rightPanel)
             gameField = self.setGameItems(gameField, self.gameBall)
-            #zeitBerechnungAnzeige2 = time.time()
 
-            #print(f"Berechnung  {zeitBerechnungAnzeige2 - zeitBerechnungAnzeige}")
-            #zeitAusgabe = time.time()
             oF.setWindow(gameField)
 
             #for x in range(len(gameField)):
             #    for y in range(len(gameField[x])):
             #        uni.set_pixel(x, y, gameField[x][y][0], gameField[x][y][1], gameField[x][y][2])
             #uni.show()
-            zeitAusgabe2 = time.time()
-            #print(f"Ausgabe  {zeitAusgabe2 - zeitAusgabe}")
-            #print(f"Gesamt {(zeitAusgabe2-zeitAusgabe)+(zeitBerechnungAnzeige2-zeitBerechnungAnzeige)+(zeitCom2-zeitCom)}")
             #time.sleep(self.speed)
 
     def ballCheck(self):
@@ -90,12 +101,9 @@ class Pong:
                 self.gameBall.bounce()
             self.gameBall.move()
 
-    def check(self):
-        if True:
-            if True:
-                self.leftPanel.moveUp()
-            else:
-                self.leftPanel.moveDown()
+    def check(self, controller):
+        controller.check_triggers()
+        print(direction)
 
 
 if __name__ == "__main__":
