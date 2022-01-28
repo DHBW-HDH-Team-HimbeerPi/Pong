@@ -47,9 +47,9 @@ class Pong:
             #                            ThresholdType.HIGHER)
             #controller.register_trigger(self.inputToDirection, {'direc': 2}, controller.mov_x, -rotationTreshold,
             #                            ThresholdType.LOWER)
-            controller.register_trigger(self.inputToDirection, {'direc': 3}, controller.mov_y, -rotationTreshold,
+            controller.register_trigger(self.inputToDirection, {'direc': -1}, controller.mov_y, -rotationTreshold,
                                         ThresholdType.LOWER)
-            controller.register_trigger(self.inputToDirection, {'direc': 4}, controller.mov_y, rotationTreshold,
+            controller.register_trigger(self.inputToDirection, {'direc': 1}, controller.mov_y, rotationTreshold,
                                         ThresholdType.HIGHER)
         except NameError:
             print("could NOT find controller")
